@@ -82,12 +82,16 @@ set(SOURCES
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
+include(GenerateExportHeader)
+generate_export_header(${PROJECT_NAME}
+	EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/export.hpp)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
 target_compile_definitions(${PROJECT_NAME} PRIVATE RCLCPP_MAJOR_VERSION=${rclcpp_VERSION_MAJOR})
-target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Multimedia Qt6::Qml Qt6::Quick ${YAML_CPP_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Multimedia Qt6::Qml Qt6::Quick ${YAML_CPP_LINK_LIBRARIES})
 ament_target_dependencies(${PROJECT_NAME} ament_index_cpp rclcpp image_transport ros_babel_fish tf2_ros)
 
 #############
@@ -192,6 +196,8 @@ else()
   # Register plugin to be found by QML
   ament_environment_hooks(environment_setup.dsv.in)
   install(DIRECTORY include/ DESTINATION include)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/export.hpp
+	  DESTINATION include/${PROJECT_NAME})
   install(TARGETS ${PROJECT_NAME} EXPORT export_${PROJECT_NAME} DESTINATION lib)
   install(FILES qmldir DESTINATION lib/qml6/Ros2)
   # Create symlink to the library instead of installing it twice

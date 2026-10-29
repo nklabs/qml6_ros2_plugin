@@ -4,6 +4,8 @@
 #ifndef QML_ROS2_PLUGIN_ARRAY_HPP
 #define QML_ROS2_PLUGIN_ARRAY_HPP
 
+#include "qml6_ros2_plugin/export.hpp"
+
 #include <QVariant>
 #include <ros_babel_fish/messages/array_message.hpp>
 
@@ -15,7 +17,7 @@ namespace qml6_ros2_plugin
  * This allows access on array elements with lazy copy mechanism.
  * Copies of an Array point to the same data and modifications of one array will be mirrored by the other.
  */
-class Array
+class QML6_ROS2_PLUGIN_EXPORT Array
 {
   Q_GADGET
   //! The length of the array, i.e., the number of elements.

@@ -5,6 +5,7 @@
 #define QML_ROS2_PLUGIN_TIME_HPP
 
 #include "qml6_ros2_plugin/conversion/qml_ros_conversion.hpp"
+#include "qml6_ros2_plugin/export.hpp"
 #include "qml6_ros2_plugin/qobject_ros2.hpp"
 
 #include <QVariant>
@@ -37,7 +38,7 @@ Q_ENUM_NS( Ros2ClockTypes )
  * Please note that this is a Q_GADGET and not a QObject which means there is no signal emitted
  * when properties change.
  */
-class Time
+class QML6_ROS2_PLUGIN_EXPORT Time
 {
   Q_GADGET
   //! The time in seconds (since 1970) as an integer.
@@ -96,7 +97,7 @@ private:
  * Please note that this is a Q_GADGET and not a QObject which means there is no signal emitted
  * when properties change.
  */
-class Duration
+class QML6_ROS2_PLUGIN_EXPORT Duration
 {
   Q_GADGET
   //! The duration in seconds as an integer.
